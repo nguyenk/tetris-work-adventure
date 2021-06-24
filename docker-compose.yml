@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  traefik:
+    image: traefik:2.1
+    command:
+      - --providers.docker
+      - --providers.docker.exposedByDefault=false
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  webapp:
+    image: thecodingmachine/nodejs:12-apache
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.webapp_router.rule=Host(`$DOMAIN`)
+    volumes:
+      - .:/var/www/html:rw
