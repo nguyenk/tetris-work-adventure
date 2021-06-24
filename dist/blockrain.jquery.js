@@ -1,5 +1,5 @@
 /*!
- * BlockRain.js 0.2.0
+ * BlockRain.js 0.2.1
  * jQuery plugin that lets you put a playable (and configurable) game of Tetris in your site or just leave it in auto in the background.
  * http://aerolab.github.io/blockrain.js/
  *
@@ -1488,6 +1488,7 @@
           case 38: /*up*/     game._board.cur.rotate('right'); break;
           case 88: /*x*/      game._board.cur.rotate('right'); break;
           case 90: /*z*/      game._board.cur.rotate('left'); break;
+          case 32: /*z*/      game._board.cur.rotate('left'); break;
           default: caught = false;
         }
         if (caught) evt.preventDefault();

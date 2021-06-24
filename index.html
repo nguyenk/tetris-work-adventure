@@ -9,16 +9,73 @@
         margin: 0;
         padding: 0;
     }
-</style>
-<div class="game" style="max-width: 300px;width: 100%;margin: auto"></div>
-<link rel="stylesheet" href="dist/blockrain.css">
+    .tetris-container{
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .controls{
+        padding: 2em;
+    }
 
+</style>
+<div class="tetris-container">
+<div class="controls">
+    <b>Controls</b>
+    <p>
+        &leftarrow; left
+    </p>
+    <p>
+        &rightarrow; right
+    </p>
+    <p>
+        &uparrow;, x rotate right
+    </p>
+    <p>
+        space bar, z rotate left
+    </p>
+    <p>
+      &downarrow; drop
+    </p>
+    <p>
+        <label for="mute">
+            <input type="checkbox" id="mute">
+            Mute sound
+        </label>
+    </p>
+</div>
+<div class="game" style="float: left; max-width: 300px;width: 100%;"></div>
+</div>
+<link rel="stylesheet" href="dist/blockrain.css">
 <!-- jQuery and Blockrain.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js" integrity="sha512-ju6u+4bPX50JQmgU97YOGAXmRMrD9as4LE05PdC3qycsGQmjGlfm041azyB1VfCXpkpt1i9gqXCT6XuxhBJtKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="dist/blockrain.jquery.min.js"></script>
 
 <script>
-  $('.game').blockrain();
+    var audio = new Audio('assets/tetris.mp3');
+    audio.loop = true;
+    var gameOver = new Audio('assets/gameOverSound.mp3');
+    gameOver.loop = false;
+    $('.game').blockrain({
+      onStart: function(){
+          audio.play();
+          audio.loop = true;
+      },
+      onRestart: function(){
+          audio.play();
+          audio.loop = true;
+      },
+      onGameOver: function(score){
+          audio.pause();
+          audio.currentTime = 0
+          gameOver.play()
+      }
+    });
+    $('#mute').change(function(){
+        audio.muted = $(this).is(":checked")
+    })
+
+
 </script>
 </body>
 </html>

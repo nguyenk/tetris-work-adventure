@@ -1476,6 +1476,7 @@
           case 38: /*up*/     game._board.cur.rotate('right'); break;
           case 88: /*x*/      game._board.cur.rotate('right'); break;
           case 90: /*z*/      game._board.cur.rotate('left'); break;
+          case 32: /*z*/      game._board.cur.rotate('left'); break;
           default: caught = false;
         }
         if (caught) evt.preventDefault();
