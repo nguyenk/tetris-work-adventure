@@ -1,54 +1,45 @@
 <html>
 <head>
-
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
 </head>
 <body>
-<style>
-    html, body{
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    .tetris-container{
-        height: 100%;
-        display: flex;
-        align-items: center;
-    }
-    .controls{
-        padding: 2em;
-    }
-
-</style>
 <div class="tetris-container">
-<div class="controls">
-    <b>Controls</b>
-    <p>
-        &leftarrow; left
-    </p>
-    <p>
-        &rightarrow; right
-    </p>
-    <p>
-        &uparrow;, x rotate right
-    </p>
-    <p>
-        space bar, z rotate left
-    </p>
-    <p>
-      &downarrow; drop
-    </p>
-    <p>
-        <label for="mute">
-            <input type="checkbox" id="mute">
-            Mute sound
-        </label>
-    </p>
-</div>
-<div class="game" style="float: left; max-width: 300px;width: 100%;"></div>
+    <div class="controls">
+        <b>Controls</b>
+        <div class="controls-container">
+            <div>
+                <b>&leftarrow;</b>&nbsp;:&nbsp;left
+            </div>
+            <div>
+                <b>&rightarrow;</b>&nbsp;:&nbsp;right
+            </div>
+            <div>
+                <b>&uparrow;, x</b>&nbsp;:&nbsp;rotate right
+            </div>
+            <div>
+                <b>space bar, z:</b>&nbsp;:&nbsp;rotate left
+            </div>
+            <div>
+                <b>&downarrow;</b>&nbsp;:&nbsp;drop
+            </div>
+        </div>
+        <p>
+            <label for="mute">
+                <input type="checkbox" id="mute">
+                Mute sound
+            </label>
+        </p>
+    </div>
+    <div class="game-container">
+        <div class="game"></div>
+    </div>
 </div>
 <link rel="stylesheet" href="dist/blockrain.css">
+<link rel="stylesheet" href="dist/cust.css">
 <!-- jQuery and Blockrain.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js" integrity="sha512-ju6u+4bPX50JQmgU97YOGAXmRMrD9as4LE05PdC3qycsGQmjGlfm041azyB1VfCXpkpt1i9gqXCT6XuxhBJtKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"
+        integrity="sha512-ju6u+4bPX50JQmgU97YOGAXmRMrD9as4LE05PdC3qycsGQmjGlfm041azyB1VfCXpkpt1i9gqXCT6XuxhBJtKg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="dist/blockrain.jquery.min.js"></script>
 
 <script>
@@ -57,21 +48,21 @@
     var gameOver = new Audio('assets/gameOverSound.mp3');
     gameOver.loop = false;
     $('.game').blockrain({
-      onStart: function(){
-          audio.play();
-          audio.loop = true;
-      },
-      onRestart: function(){
-          audio.play();
-          audio.loop = true;
-      },
-      onGameOver: function(score){
-          audio.pause();
-          audio.currentTime = 0
-          gameOver.play()
-      }
+        onStart: function () {
+            audio.play();
+            audio.loop = true;
+        },
+        onRestart: function () {
+            audio.play();
+            audio.loop = true;
+        },
+        onGameOver: function (score) {
+            audio.pause();
+            audio.currentTime = 0
+            gameOver.play()
+        }
     });
-    $('#mute').change(function(){
+    $('#mute').change(function () {
         audio.muted = $(this).is(":checked")
     })
 
