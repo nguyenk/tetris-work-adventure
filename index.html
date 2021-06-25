@@ -29,11 +29,21 @@
                 Mute sound
             </label>
         </p>
+        <p>
+            <label for="crazy">
+                <input type="checkbox" id="crazy">
+                Play the crazy piano tetris theme (you will need to last 2'45 !
+            </label>
+        </p>
     </div>
     <div class="game-container">
         <div class="game"></div>
     </div>
 </div>
+<audio id="audio" controls="controls">
+    <source id="audioSource" src=""></source>
+    Your browser does not support the audio format.
+</audio>
 <link rel="stylesheet" href="dist/blockrain.css">
 <link rel="stylesheet" href="dist/cust.css">
 <!-- jQuery and Blockrain.js -->
@@ -43,30 +53,35 @@
 <script src="dist/blockrain.jquery.min.js"></script>
 
 <script>
-    var audio = new Audio('assets/tetris.mp3');
-    audio.loop = true;
-    var gameOver = new Audio('assets/gameOverSound.mp3');
-    gameOver.loop = false;
+    var audio = document.getElementById('audio');
+    var source = document.getElementById('audioSource');
+    var gameTrack = 'assets/tetris.mp3';
+
+    function playSound(track, loop){
+        source.src = track ? track : gameTrack
+        audio.loop = loop;
+        audio.load();
+        audio.play();
+    }
+
     $('.game').blockrain({
         onStart: function () {
-            audio.play();
-            audio.loop = true;
+            playSound(null, true)
         },
         onRestart: function () {
-            audio.play();
-            audio.loop = true;
+            playSound(null, true)
         },
         onGameOver: function (score) {
-            audio.pause();
-            audio.currentTime = 0
-            gameOver.play()
+            playSound('assets/gameOverSound.mp3', false)
         }
     });
     $('#mute').change(function () {
         audio.muted = $(this).is(":checked")
     })
-
-
+    $('#crazy').change(function () {
+        gameTrack = $(this).is(":checked") ? 'assets/crazyPianoTetris.mp3' : 'assets/tetris.mp3';
+        playSound(null, true);
+    })
 </script>
 </body>
 </html>
